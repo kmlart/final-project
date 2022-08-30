@@ -69,7 +69,7 @@ public class Patients {
                 
                 
 		public void selectDB(String i) {
-                                           Patient_id=i;
+                             Patient_id=i;
 			try {    //Load DB Driver
 				Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
             			Connection con1 = DriverManager.getConnection("jdbc:ucanaccess://C:/Users/Kevin/Downloads/ChiropractorOfficeMDB.accdb");
@@ -82,9 +82,6 @@ public class Patients {
 				System.out.println(sql);
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
-            
-            
-            
             
             setfirstName(rs.getString(1));
             setlastName(rs.getString(2));
@@ -99,9 +96,39 @@ public class Patients {
 				System.out.println(se);
 			}
 		} //end selectDB()
-                
-       
-                
+	 // ++++++++++ DB Behaviors +++++++++++++
+    /************************************************************************
+    * selectDB() gets the patient data and information from the Database 
+    *************************************************************************/
+	public void updateDB(){
+        try{
+            //Loading the driver
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            Connection con = DriverManager.getConnection("jdbc:ucanaccess://C:/Users/Kevin/Downloads/ChiropractorOfficeMDB.accdb");
+            System.out.println("Database connected and ready to be updated");
+            Statement stmt = con.createStatement();
+            String sql = "UPDATE  Patients  SET firstname = '"+ getfirstName() +"',"
+                    + "lastName = '"+ getlastName() +"',"
+                    + "address = '"+ getaddress() +"',"
+                    + "city = '"+ getcity() +"',"
+                    + "state = '"+ getstate() +"',"
+                    + "zip = '"+ getzip() +"',"
+                    + "email = '"+ getemail() +"',"
+                    + "ins_co = '"+ getins_co() +"'"
+                    + " WHERE  Patient_id ='"+ getPatient_id() +"'" ;
+            int n = stmt.executeUpdate(sql);
+            // Checking if the code has been executed
+            if(n == 1){
+                System.out.println("Success !!! ");
+            }
+            else{
+                System.out.println("Failed !!!");
+            }
+        }catch(Exception ex){
+            
+         ex.printStackTrace();
+        }
+     }//end of updateDB
 		
 		public String getPatient_id() { return Patient_id; }
 		public void setPatient_id(String i) { Patient_id=i; }
@@ -119,11 +146,7 @@ public class Patients {
 		
 		public String getcity() { return city; }
 		public void setcity(String ci) { city=ci; }
-                
-                
-                
-                
-                
+
                 
                 public String getstate() { return state; }
 		public void setstate(String st) { state=st; }
@@ -135,11 +158,8 @@ public class Patients {
 		public void setemail(String em) { email=em; }
 		
               public String getins_co() { return ins_co; }
-		public void setins_co(String in) { ins_co=in; }
-               
-   
-                
-                
+              public void setins_co(String in) { ins_co=in; }
+
 		public void display() {
 			System.out.println("ID             =   "+ Patient_id);
                        
