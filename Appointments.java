@@ -87,7 +87,30 @@ private String apptDateTime;
 			}
 		} //end selectDB()
                 
+       public void updateDB(){
+         
        
+        try{
+           Connection con1 = DriverManager.getConnection("jdbc:ucanaccess://C:/Users/Kevin/Downloads/ChiropractorOfficeMDB.accdb");
+            Statement stmt = con1.createStatement();
+        
+            String sql = "update Appointments set apptDateTime = '"+getapptDateTime()+"', chiroprac_id = '"+getpatient_id()+"', proc_code = '"+getproc_code()+"', office_num = '"+getoffice_num()+"' where patient_id = '"+getpatient_id()+"'";
+                    
+                    ;
+            System.out.println(sql);
+            int n = stmt.executeUpdate(sql);
+            if (n==1)
+                System.out.println("UPDATE Successful!!!");
+            else
+                System.out.println("UPDATE FAILED***********");
+            con1.close();
+        }
+        catch(Exception e1){
+            System.out.println(e1);
+        }
+      
+    }//end updateDB()          
+                    
                 
 		
 		public String getapptDateTime() { return apptDateTime; }
