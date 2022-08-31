@@ -83,7 +83,33 @@ public class Admin {
 			}
 		} //end selectDB()
                 
-       
+        public void insertDB(String ap, String pd, String dt, String pc, String ph){
+       setAdmin_id(ap);
+       setfirstName(pd);
+        setlastName(dt);
+        setemail(pc);
+          setphoneNum(ph);
+              
+        try{
+            
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            Connection con = DriverManager.getConnection("jdbc:ucanaccess://C:/Users/Kevin/Downloads/ChiropractorOfficeMDB.accdb");
+            Statement stmt = con.createStatement();
+            String sql = "Insert into Admin values('"+ getAdmin_id() +"','"+getfirstName()+"', '"+getlastName()+"','"+getemail()+"', '"+getphoneNum()+"')";
+                                                   
+            System.out.println(sql);
+            int n = stmt.executeUpdate(sql);
+            if (n==1)
+                System.out.println("INSERT Successful!!!");
+            else
+                System.out.println("INSERT FAILED***********");
+          con.close();
+        }
+        catch(Exception e1){
+            System.out.println(e1);
+        }
+              
+    }//end insertDB()  
                 
 		
 		public String getAdmin_id() { return Admin_id; }
