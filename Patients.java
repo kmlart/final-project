@@ -1,10 +1,5 @@
 package Business;
-
-
 //Java 111 Kevin Lyons
-
-
-
 import java.sql.*;
 
 /*********************************************************************
@@ -13,90 +8,75 @@ import java.sql.*;
  * 
  *******************************************************************/
 
-
-
 public class Patients {
-		
-		
-			private String Patient_id;
-                        private String firstName;
-                        private String lastName;
-                        private String address;
-                        private String city;
-                        private String state;
-                        private String zip;
-                        private String email;
-                        private String ins_co;
-                       
-		
-
-                public Patients() {
-			Patient_id="";
-                        
-			firstName="";
-			lastName="";
-                        address="";
-                        city="";
-                        state="";
-                        zip="";
-                        
-			email="";
-                        ins_co="";
-                       
-		}
-
-
-
-
-		public Patients(String i, String fo, String ln, String p, String ci, String st, String zp, String em, String in ) {
-			
-                    Patient_id = i;
-                    firstName = fo;
-                    lastName=ln;
-                    address=p;
-                    city=ci;
-                    state=st;
-                    zip=zp;
-                    email=em;
-                    ins_co=in;
-		}
-                
+	private String Patient_id;
+	private String firstName;
+        private String lastName;
+        private String address;
+        private String city;
+        private String state;
+        private String zip;
+        private String email;
+        private String ins_co;
+//============== Overloading Constructors ==================================
+//Constructor with no arguments
+public Patients() {
+	Patient_id="";        
+	firstName="";
+	lastName="";
+        address="";
+        city="";
+        state="";
+        zip="";
+	email="";
+        ins_co="";       
+}
+//Constructor with arguments
+public Patients(String i, String fo, String ln, String p, String ci, String st, String zp, String em, String in ) {
+   	Patient_id = i;
+   	firstName = fo;
+   	lastName=ln;
+   	address=p;
+   	city=ci;
+   	state=st;
+   	zip=zp;
+   	email=em;
+   	ins_co=in;
+}            
   /*********************************************************************
  *
  * The selectDB class is used to select from database
  * 
  *******************************************************************/              
-                
-                
-		public void selectDB(String i) {
-                             Patient_id=i;
-			try {    //Load DB Driver
-				Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            			Connection con1 = DriverManager.getConnection("jdbc:ucanaccess://C:/Users/Kevin/Downloads/ChiropractorOfficeMDB.accdb");
 
-
-			           //Execute SQL Statement
-				Statement stmt =con1.createStatement();
-			        String sql = "Select * from Patients where Patient_id='"+getPatient_id()+"'";
-			          //Process ResultSet
-				System.out.println(sql);
-            ResultSet rs = stmt.executeQuery(sql);
-            rs.next();
+public void selectDB(String i) {
+    Patient_id=i;
+	try {    //Load DB Driver
+		Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            	Connection con1 = DriverManager.getConnection("jdbc:ucanaccess://C:/Users/Kevin/Downloads/ChiropractorOfficeMDB.accdb");
+		//Execute SQL Statement
+		Statement stmt =con1.createStatement();
+		String sql = "Select * from Patients where Patient_id='"+getPatient_id()+"'";
+		//Process ResultSet
+		System.out.println(sql);
+            	ResultSet rs = stmt.executeQuery(sql);
+            	
+		rs.next();
             
-            setfirstName(rs.getString(1));
-            setlastName(rs.getString(2));
-            setaddress(rs.getString(3));
-            setcity(rs.getString(4));
-            setstate(rs.getString(5));
-            setzip(rs.getString(6));
-            setemail(rs.getString(7));
-            setins_co(rs.getString(8));          
-			}
-			catch(Exception se) {
-				System.out.println(se);
-			}
-		} //end selectDB()
-	 // ++++++++++ DB Behaviors +++++++++++++
+            	setfirstName(rs.getString(1));
+            	setlastName(rs.getString(2));
+            	setaddress(rs.getString(3));
+            	setcity(rs.getString(4));
+            	setstate(rs.getString(5));
+            	setzip(rs.getString(6));
+            	setemail(rs.getString(7));
+            	setins_co(rs.getString(8));          
+	}catch(Exception se) {
+		System.out.println(se);
+		}
+	} //end selectDB()
+	
+	// ++++++++++ DB Behaviors +++++++++++++
     /************************************************************************
     * selectDB() gets the patient data and information from the Database 
     *************************************************************************/
@@ -132,7 +112,6 @@ public class Patients {
 		
 		public String getPatient_id() { return Patient_id; }
 		public void setPatient_id(String i) { Patient_id=i; }
-                
                 
 		
 		public String getfirstName() { return firstName; }
@@ -172,17 +151,13 @@ public class Patients {
 			System.out.println("Email            =   "+ email);
                         System.out.println("Ins_Co           =   "+ ins_co);
 		}
-		
-		public static void main(String args[]) {
-			// Testing Database methods
+// Testing Class		
+public static void main(String args[]) {
+// Testing Database methods
 			
-                   Patients p1;
-           p1 = new Patients();
+         Patients p1;
+         p1 = new Patients();
 	 p1.selectDB("P201");
-           p1.display();    
-                  
-             
-                        
-                      
-		}
+         p1.display();   
+	}
 }
